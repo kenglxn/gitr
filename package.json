@@ -13,11 +13,10 @@
         "toolbelt":"bin/toolbelt"
     },
     "preferGlobal":true,
-    "main":"src/toolbelt",
+    "main":"lib/toolbelt",
     "scripts":{
         "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
     },
-
     "engines":{
         "node":"0.8.x",
         "npm":"1.1.x"
