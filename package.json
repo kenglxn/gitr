@@ -1,0 +1,25 @@
+{
+    "name":"toolbelt",
+    "description":"kenglxn toolbelt, ymse commands",
+    "author":"ken@glxn.net",
+    "version":"0.0.1",
+    "dependencies":{
+        "jasmine-node":"1.0.x",
+        "coffee-script": "1.5.x",
+        "requirejs":"0.27.x",
+        "underscore": "1.4.x"
+    },
+    "bin":{
+        "toolbelt":"bin/toolbelt"
+    },
+    "preferGlobal":true,
+    "main":"src/toolbelt",
+    "scripts":{
+        "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
+    },
+
+    "engines":{
+        "node":"0.8.x",
+        "npm":"1.1.x"
+    }
+}
