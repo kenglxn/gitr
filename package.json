@@ -1,24 +1,24 @@
 {
-    "name":"toolbelt",
-    "description":"kenglxn toolbelt, ymse commands",
-    "author":"ken@glxn.net",
+    "name":"CLeetus",
     "version":"0.0.1",
-    "dependencies":{
-        "jasmine-node":"1.0.x",
-        "coffee-script": "1.5.x",
-        "requirejs":"0.27.x",
-        "underscore": "1.4.x"
-    },
+    "description":"Command Line tools",
+    "main":"./lib/cleetus.js",
     "bin":{
-        "toolbelt":"bin/toolbelt"
+        "toolbelt":"./bin/cleetus.js"
+    },
+    "dependencies":{
+        "jasmine-node":"~1.0.28",
+        "requirejs":"~0.27.1",
+        "coffee-script":"~1.5.0",
+        "underscore":"~1.4.4"
     },
     "preferGlobal":true,
-    "main":"lib/toolbelt",
     "scripts":{
         "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
     },
-    "engines":{
-        "node":"0.8.x",
-        "npm":"1.1.x"
-    }
+    "repository":"",
+    "author":"ken@glxn.net",
+    "license":"ALv2",
+    "readmeFilename":"README.md",
+    "gitHead":"7824de88f28366f5a33dabd5592b4bf45048cba1"
 }
