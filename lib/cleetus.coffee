@@ -1,15 +1,15 @@
 _ = require('underscore')._
 
-error   = '\x1B[0;31m'
-info = '\x1B[0;32m'
-reset = '\x1B[0m'
+class Cleetus
+  error   = '\x1B[0;31m'
+  info = '\x1B[0;32m'
+  reset = '\x1B[0m'
 
-log = (msg, level) ->
-  level ?= info
-  console.log level + msg + reset
+  log = (msg, level) ->
+    level ?= info
+    console.log level + msg + reset
 
+  ls: ->
+    log 'ls()'
 
-
-log '.....toolbelt.....'
-log '.....toolbelt.....', info
-log '.....toolbelt.....', error
+exports = module.exports = Cleetus
