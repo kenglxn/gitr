@@ -1,5 +1,7 @@
 _ = require('underscore')._
 
+console.log "duhr ima Cleetus.. yerp.."
+
 class Cleetus
   error   = '\x1B[0;31m'
   info = '\x1B[0;32m'
