@@ -37,6 +37,7 @@ describe 'cleetus', ->
 
     expect(cleetus.log).toHaveBeenCalled()
     expect(cleetus.log.callCount).toBe(2)
-#    expect(cleetus.log.calls[0]).toBe('withGitRepo')
-#    expect(cleetus.log.calls[1]).toBe('secondLevel')
+    expect(cleetus.log.calls[0].args[0]).toBe('testDir/withGitRepo')
+    expect(cleetus.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
+
 
