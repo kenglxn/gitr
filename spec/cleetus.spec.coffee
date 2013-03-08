@@ -1,19 +1,42 @@
 Cleetus = require '../lib/cleetus'
+fs = require 'fs'
 
 cleetus = new Cleetus()
 
 describe 'cleetus', ->
+  directoryStructure = [
+    'testDir/withoutGitRepo',
+    'testDir/withGitRepo',
+    'testDir/withGitRepo/.git',
+    'testDir/withGitRepoAtSecondLevel',
+    'testDir/withGitRepoAtSecondLevel/secondLevel',
+    'testDir/withGitRepoAtSecondLevel/secondLevel/.git',
+  ]
+
+
+  beforeEach ->
+    for directory in directoryStructure
+      do (directory) ->
+        fs.mkdirSync(directory)
+
+  afterEach ->
+    for directory in directoryStructure.reverse()
+      do (directory) ->
+        fs.rmdirSync(directory)
+    directoryStructure.reverse()
 
   it 'should be defined', ->
     expect(Cleetus).toBeDefined()
 
-  it 'should have private log method', ->
-    expect(cleetus.log).not.toBeDefined()
+  it 'should have public log function', ->
+    expect(cleetus.log).toBeDefined()
 
   it 'should list all git enabled directories under cwd', ->
-    expect(cleetus.ls).toBeDefined()
+    spyOn(cleetus, 'log')
+    cleetus.ls('testDir')
 
-#   use fs.readdir to check fir .git as child,
-#     if it is present add the directory to list of git dirs
-#     if not recurse
-    cleetus.ls()
+    expect(cleetus.log).toHaveBeenCalled()
+    expect(cleetus.log.callCount).toBe(2)
+#    expect(cleetus.log.calls[0]).toBe('withGitRepo')
+#    expect(cleetus.log.calls[1]).toBe('secondLevel')
+
