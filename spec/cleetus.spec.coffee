@@ -40,4 +40,12 @@ describe 'cleetus', ->
     expect(cleetus.log.calls[0].args[0]).toBe('testDir/withGitRepo')
     expect(cleetus.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
 
+  it 'should ls from cwd if no argument is passed', ->
+    spyOn(cleetus, 'log')
+    cleetus.ls()
+    expect(cleetus.log).toHaveBeenCalled()
+    expect(cleetus.log.callCount).toBe(1)
+    expect(cleetus.log.calls[0].args[0]).toBe(process.cwd())
+
+
 
