@@ -11,7 +11,7 @@ class Cleetus
     console.log level + msg + reset
 
   ls: (dir) ->
-    dir = process.cwd() unless dir?.length
+    dir = if dir?.length then "#{dir}".replace /\/$/, '' else "#{process.cwd()}"
     if fs.statSync(dir).isDirectory()
       subDirs = fs.readdirSync(dir)
       if '.git' in subDirs
