@@ -12,12 +12,13 @@ class Cleetus
 
   ls: (dir) ->
     dir = process.cwd() unless dir?.length
-    subDirs = fs.readdirSync(dir)
-    if '.git' in subDirs
-      @log dir
-    else
-      for subDir in subDirs
-        @ls(dir + '/' + subDir)
+    if fs.statSync(dir).isDirectory()
+      subDirs = fs.readdirSync(dir)
+      if '.git' in subDirs
+        @log dir
+      else
+        for subDir in subDirs
+          @ls(dir + '/' + subDir)
 
 
 exports = module.exports = Cleetus

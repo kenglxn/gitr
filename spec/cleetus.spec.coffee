@@ -1,10 +1,12 @@
 Cleetus = require '../lib/cleetus'
 fs = require 'fs'
+rimraf = require 'rimraf'
 
 cleetus = new Cleetus()
 
 describe 'cleetus', ->
   directoryStructure = [
+    'testDir',
     'testDir/withoutGitRepo',
     'testDir/withGitRepo',
     'testDir/withGitRepo/.git',
@@ -17,13 +19,12 @@ describe 'cleetus', ->
   beforeEach ->
     for directory in directoryStructure
       do (directory) ->
-        fs.mkdirSync(directory)
+        unless fs.existsSync(directory)
+          fs.mkdirSync(directory)
+          fs.writeFileSync(directory + '/tmpFile', 'stuff') if directory.search('.git$') == -1
 
   afterEach ->
-    for directory in directoryStructure.reverse()
-      do (directory) ->
-        fs.rmdirSync(directory)
-    directoryStructure.reverse()
+    rimraf.sync 'testDir'
 
   it 'should be defined', ->
     expect(Cleetus).toBeDefined()
