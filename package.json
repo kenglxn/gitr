@@ -4,7 +4,7 @@
     "description":"Command Line tools",
     "main":"./lib/cleetus.js",
     "bin":{
-        "toolbelt":"./bin/cleetus.js"
+        "cleetus":"./bin/cleetus.js"
     },
     "dependencies":{
         "jasmine-node":"~1.0.28",
