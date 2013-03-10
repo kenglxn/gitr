@@ -28,6 +28,11 @@ describe 'cleetus', ->
   it 'should be defined', ->
     expect(Cleetus).toBeDefined()
 
+  it 'should have help function', ->
+    spyOn(cleetus, 'log')
+    expect(cleetus.help).toBeDefined()
+    cleetus.help()
+
   it 'should have public log function', ->
     expect(cleetus.log).toBeDefined()
 

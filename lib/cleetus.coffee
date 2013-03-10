@@ -1,24 +1,38 @@
 fs = require 'fs'
+_ = require 'underscore'
 
 class Cleetus
   error  = '\x1B[0;31m'
   info = '\x1B[0;32m'
   reset = '\x1B[0m'
 
+  checkDirArg = (dirArg) ->
+    if dirArg?.length then "#{dirArg}".replace /\/$/, '' else "#{process.cwd()}"
+
+  repos = (dir) =>
+    dirs = []
+    if fs.statSync(dir).isDirectory()
+      subDirs = fs.readdirSync(dir)
+      if '.git' in subDirs
+        dirs.push dir
+      else
+        subDirs.every (subDir) ->
+          dirs.push repos(dir + '/' + subDir)
+    _.flatten dirs
+
   constructor: ->
+
+  help: ->
+    msg = 'Please supply a command. Available commands are:\n'
+    for key of @
+      msg += "\t#{key}\n"
+    @log msg
 
   log: (msg, level = info) =>
     console.log level + msg + reset
 
-  ls: (dir) ->
-    dir = if dir?.length then "#{dir}".replace /\/$/, '' else "#{process.cwd()}"
-    if fs.statSync(dir).isDirectory()
-      subDirs = fs.readdirSync(dir)
-      if '.git' in subDirs
-        @log dir
-      else
-        for subDir in subDirs
-          @ls(dir + '/' + subDir)
+  ls: (dir) =>
+    _.each repos(checkDirArg(dir)), (repo) => @log repo
 
 
 exports = module.exports = Cleetus
