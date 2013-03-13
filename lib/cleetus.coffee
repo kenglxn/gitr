@@ -21,25 +21,34 @@ class Cleetus
           dirs.push repos(dir + '/' + subDir)
     _.flatten dirs
 
+  log = (msg, level = '') =>
+    console.log level + msg
+    console.log reset if level is not ''
+
+  exec = (gitCmd) =>
+    cp.exec gitCmd, (err, stdout, stderr) ->
+      log err if err?
+      log stdout if stdout?
+      log stderr if stderr?
+
+  definitions =
+    'ls': "lists all repos"
+    'do': "perform a git command in all repos known to ls"
+
   constructor: ->
 
-  help: ->
-    msg = 'Please supply a command. Available commands are:\n'
+  help: =>
+    log 'Please supply a command. Available commands are:'
     for key of @
-      msg += "\t#{key}\n"
-    @log msg
-
-  log: (msg, level = info) =>
-    console.log level + msg + reset
+      log "> #{key} :: #{definitions[key]}" unless key is 'help'
 
   ls: (dir) =>
-    _.each repos(checkDirArg(dir)), (repo) => @log repo
+    _.each repos(checkDirArg(dir)), (repo) => log repo
 
   do: (cmd, path) =>
     path = checkDirArg path
     _.each repos(checkDirArg(path)), (repo) =>
-      cp.exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}"
-#      @log repo
+      exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}"
 
 
 exports = module.exports = Cleetus

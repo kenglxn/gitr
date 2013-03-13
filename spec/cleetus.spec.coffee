@@ -30,45 +30,43 @@ describe 'cleetus', ->
     expect(Cleetus).toBeDefined()
 
   it 'should have help function', ->
-    spyOn(cleetus, 'log')
+    spyOn(console, 'log')
     expect(cleetus.help).toBeDefined()
     cleetus.help()
-
-  it 'should have public log function', ->
-    expect(cleetus.log).toBeDefined()
+    expect(console.log.callCount).toBe(3)
 
   it 'should list all git enabled directories under given directory', ->
-    spyOn(cleetus, 'log')
+    spyOn(console, 'log')
     cleetus.ls('testDir')
 
-    expect(cleetus.log).toHaveBeenCalled()
-    expect(cleetus.log.callCount).toBe(2)
-    expect(cleetus.log.calls[0].args[0]).toBe('testDir/withGitRepo')
-    expect(cleetus.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
+    expect(console.log).toHaveBeenCalled()
+    expect(console.log.callCount).toBe(2)
+    expect(console.log.calls[0].args[0]).toBe('testDir/withGitRepo')
+    expect(console.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
 
   it 'should trim trailing slash list all git enabled directories under given directory', ->
-    spyOn(cleetus, 'log')
+    spyOn(console, 'log')
     cleetus.ls('testDir')
 
-    expect(cleetus.log).toHaveBeenCalled()
-    expect(cleetus.log.callCount).toBe(2)
-    expect(cleetus.log.calls[0].args[0]).toBe('testDir/withGitRepo')
-    expect(cleetus.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
+    expect(console.log).toHaveBeenCalled()
+    expect(console.log.callCount).toBe(2)
+    expect(console.log.calls[0].args[0]).toBe('testDir/withGitRepo')
+    expect(console.log.calls[1].args[0]).toBe('testDir/withGitRepoAtSecondLevel/secondLevel')
 
   it 'should ls from cwd if no argument is passed', ->
-    spyOn(cleetus, 'log')
+    spyOn(console, 'log')
     cleetus.ls()
-    expect(cleetus.log).toHaveBeenCalled()
-    expect(cleetus.log.callCount).toBe(1)
-    expect(cleetus.log.calls[0].args[0]).toBe(process.cwd())
+    expect(console.log).toHaveBeenCalled()
+    expect(console.log.callCount).toBe(1)
+    expect(console.log.calls[0].args[0]).toBe(process.cwd())
 
   it 'should ls with absolute path', ->
-    spyOn(cleetus, 'log')
+    spyOn(console, 'log')
     cleetus.ls('/Users/ken/dev/git/cleetus/testDir')
-    expect(cleetus.log).toHaveBeenCalled()
-    expect(cleetus.log.callCount).toBe(2)
-    expect(cleetus.log.calls[0].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepo')
-    expect(cleetus.log.calls[1].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepoAtSecondLevel/secondLevel')
+    expect(console.log).toHaveBeenCalled()
+    expect(console.log.callCount).toBe(2)
+    expect(console.log.calls[0].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepo')
+    expect(console.log.calls[1].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepoAtSecondLevel/secondLevel')
 
   it 'should have function for executing a git command', ->
     expect(cleetus.do).toBeDefined()
@@ -78,7 +76,7 @@ describe 'cleetus', ->
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(1)
     command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
-    expect(cp.exec).toHaveBeenCalledWith(command)
+    expect(cp.exec.calls[0].args[0]).toBe(command)
 
   it 'should execute git command at cmd if path is not supplied', ->
     expect(cleetus.do).toBeDefined()
@@ -88,7 +86,7 @@ describe 'cleetus', ->
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(1)
     command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
-    expect(cp.exec).toHaveBeenCalledWith(command)
+    expect(cp.exec.calls[0].args[0]).toBe(command)
 
   it 'should execute git command recursively for all git enabled repos', ->
     expect(cleetus.do).toBeDefined()
