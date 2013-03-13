@@ -29,7 +29,7 @@ class Cleetus
       log stderr if stderr?
 
   help: =>
-    log 'Please supply a command. Available commands are:'
+    log 'Available commands:'
     for fn of @
       log "> #{fn} :: #{doc[fn]}" unless fn is 'help'
 
