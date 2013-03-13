@@ -1,6 +1,7 @@
 Cleetus = require '../lib/cleetus'
 fs = require 'fs'
 rimraf = require 'rimraf'
+cp = require 'child_process'
 
 cleetus = new Cleetus()
 
@@ -69,5 +70,33 @@ describe 'cleetus', ->
     expect(cleetus.log.calls[0].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepo')
     expect(cleetus.log.calls[1].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepoAtSecondLevel/secondLevel')
 
+  it 'should have function for executing a git command', ->
+    expect(cleetus.do).toBeDefined()
+    expect(cp.exec).toBeDefined();
+    spyOn(cp, 'exec');
+    cleetus.do 'status', '/Users/ken/dev/git/cleetus'
+    expect(cp.exec).toHaveBeenCalled()
+    expect(cp.exec.callCount).toBe(1)
+    command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
+    expect(cp.exec).toHaveBeenCalledWith(command)
 
+  it 'should execute git command at cmd if path is not supplied', ->
+    expect(cleetus.do).toBeDefined()
+    expect(cp.exec).toBeDefined();
+    spyOn(cp, 'exec');
+    cleetus.do 'status'
+    expect(cp.exec).toHaveBeenCalled()
+    expect(cp.exec.callCount).toBe(1)
+    command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
+    expect(cp.exec).toHaveBeenCalledWith(command)
+
+  it 'should execute git command recursively for all git enabled repos', ->
+    expect(cleetus.do).toBeDefined()
+    expect(cp.exec).toBeDefined();
+    spyOn(cp, 'exec');
+    cleetus.do 'status', 'testDir'
+    expect(cp.exec).toHaveBeenCalled()
+    expect(cp.exec.callCount).toBe(2)
+    expect(cp.exec.calls[0].args[0]).toBe('git --git-dir=testDir/withGitRepo/.git --work-tree=testDir/withGitRepo status')
+    expect(cp.exec.calls[1].args[0]).toBe('git --git-dir=testDir/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=testDir/withGitRepoAtSecondLevel/secondLevel status')
 

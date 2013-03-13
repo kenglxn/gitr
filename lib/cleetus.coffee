@@ -1,5 +1,6 @@
 fs = require 'fs'
 _ = require 'underscore'
+cp = require 'child_process'
 
 class Cleetus
   error  = '\x1B[0;31m'
@@ -33,6 +34,12 @@ class Cleetus
 
   ls: (dir) =>
     _.each repos(checkDirArg(dir)), (repo) => @log repo
+
+  do: (cmd, path) =>
+    path = checkDirArg path
+    _.each repos(checkDirArg(path)), (repo) =>
+      cp.exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}"
+#      @log repo
 
 
 exports = module.exports = Cleetus
