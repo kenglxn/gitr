@@ -23,10 +23,7 @@ class Cleetus
     _.flatten dirs
 
   exec = (gitCmd) =>
-    cp.exec gitCmd, (err, stdout, stderr) ->
-      log err if err?
-      log stdout if stdout?
-      log stderr if stderr?
+    cp.exec gitCmd, (err, stdout, stderr) -> log stdout if stdout?
 
   help: =>
     log 'Available commands:'
@@ -35,7 +32,7 @@ class Cleetus
 
   ls: (dir) => _.each repos(checkDirArg(dir)), (repo) => log repo
 
-  do: (cmd, path) =>
+  do: (cmd = '', path) =>
     path = checkDirArg path
     _.each repos(checkDirArg(path)), (repo) =>
       exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}"
