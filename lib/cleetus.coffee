@@ -1,6 +1,10 @@
 fs = require 'fs'
 _ = require 'underscore'
 cp = require 'child_process'
+cls = '\x1B[0m'
+red  = '\x1B[0;31m'
+green = '\x1B[0;32m'
+yellow = '\x1B[0;33m'
 
 class Cleetus
   doc =
@@ -22,8 +26,13 @@ class Cleetus
           dirs.push repos dir + '/' + subDir
     _.flatten dirs
 
-  exec = (gitCmd) =>
-    cp.exec gitCmd, (err, stdout, stderr) -> log stdout if stdout?
+  exec = (gitCmd, repo) =>
+    cp.exec gitCmd, (err, stdout, stderr) ->
+      msg = ''
+      msg += "#{stdout}\n#{cls}" if stdout?.length > 0
+      msg += "#{red}#{err}#{cls}" if err?.length > 0
+      msg += "#{red}#{stderr}#{cls}" if stderr?.length > 0
+      log "#{yellow}::#{repo}::#{green}\n#{msg}" if msg?.length > 0
 
   help: =>
     log 'Available commands:'
@@ -35,6 +44,6 @@ class Cleetus
   do: (cmd = '', path) =>
     path = checkDirArg path
     _.each repos(checkDirArg(path)), (repo) =>
-      exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}"
+      exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}", repo
 
 exports = module.exports = Cleetus
