@@ -35,7 +35,7 @@ class Cleetus
       log "#{yellow}::#{repo}::#{green}\n#{msg}" if msg?.length > 0
 
   help: =>
-    log 'Available commands:'
+    log 'usage: cleetus <command> [<args>] [<base_path_of_execution>]\n'
     for fn of @
       log "> #{fn} :: #{doc[fn]}" unless fn is 'help'
 
