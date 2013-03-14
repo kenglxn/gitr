@@ -26,13 +26,19 @@ class Cleetus
           dirs.push repos dir + '/' + subDir
     _.flatten dirs
 
-  exec = (gitCmd, repo) =>
+  exec = (gitCmd, repo, cb) =>
     cp.exec gitCmd, (err, stdout, stderr) ->
       msg = ''
       msg += "#{stdout}\n#{cls}" if stdout?.length > 0
       msg += "#{red}#{err}#{cls}" if err?.length > 0
       msg += "#{red}#{stderr}#{cls}" if stderr?.length > 0
       log "#{yellow}::#{repo}::#{green}\n#{msg}" if msg?.length > 0
+      cb()
+
+  dequeue = (fns, cb) ->
+    fn = fns.pop()
+    return cb() unless fn
+    fn -> dequeue fns, cb
 
   help: =>
     log 'usage: cleetus <command> [<args>] [<base_path_of_execution>]\n'
@@ -42,8 +48,10 @@ class Cleetus
   ls: (dir) => _.each repos(checkDirArg(dir)), (repo) => log repo
 
   do: (cmd = '', path) =>
-    path = checkDirArg path
+    fns = []
     _.each repos(checkDirArg(path)), (repo) =>
-      exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}", repo
+      fns.push (cb) =>
+        exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}", repo, cb
+    dequeue fns, =>
 
 exports = module.exports = Cleetus

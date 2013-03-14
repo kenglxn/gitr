@@ -91,10 +91,11 @@ describe 'cleetus', ->
   it 'should execute git command recursively for all git enabled repos', ->
     expect(cleetus.do).toBeDefined()
     expect(cp.exec).toBeDefined();
-    spyOn(cp, 'exec');
+    spyOn(cp, 'exec').andCallFake (cmd, cb) -> cb()
     cleetus.do 'status', 'testDir'
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(2)
-    expect(cp.exec.calls[0].args[0]).toBe('git --git-dir=testDir/withGitRepo/.git --work-tree=testDir/withGitRepo status')
-    expect(cp.exec.calls[1].args[0]).toBe('git --git-dir=testDir/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=testDir/withGitRepoAtSecondLevel/secondLevel status')
+    expect(cp.exec.calls[0].args[0]).toBe('git --git-dir=testDir/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=testDir/withGitRepoAtSecondLevel/secondLevel status')
+    expect(cp.exec.calls[1].args[0]).toBe('git --git-dir=testDir/withGitRepo/.git --work-tree=testDir/withGitRepo status')
+
 
