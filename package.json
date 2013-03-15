@@ -19,7 +19,10 @@
     "scripts":{
         "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
     },
-    "repository":"",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/kenglxn/gitr.git"
+    },
     "author":"ken@glxn.net",
     "license":"ALv2",
     "readmeFilename":"README.md"
