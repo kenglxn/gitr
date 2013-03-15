@@ -1,9 +1,7 @@
 CLeetus command line tools
 
 ```
-git clone https://github.com/kenglxn/CLeetus.git
-cd CLeetus
-sudo npm install -g
+sudo npm install -g cleetus
 
 #example usage
 cleetus help
