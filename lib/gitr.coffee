@@ -29,9 +29,12 @@ class GitR
 
   do: (cmd = '', path) =>
     fns = []
-    _.each repos(checkDirArg(path)), (repo) =>
+    dir = checkDirArg(path)
+    repos = repos(dir)
+    _.each repos, (repo) =>
       fns.push (cb) =>
         exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}", repo, cb
     q.dequeue fns, =>
+    log "#{color.red}no git repos under #{color.yellow}#{dir}#{color.cls}" if repos.length == 0
 
 exports = module.exports = GitR
