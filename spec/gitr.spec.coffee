@@ -1,11 +1,11 @@
-Cleetus = require '../lib/cleetus'
+GitR = require '../lib/gitr'
 fs = require 'fs'
 rimraf = require 'rimraf'
 cp = require 'child_process'
 
-cleetus = new Cleetus()
+gitr = new GitR()
 
-describe 'cleetus', ->
+describe 'gitr', ->
   directoryStructure = [
     'testDir',
     'testDir/withoutGitRepo',
@@ -15,7 +15,6 @@ describe 'cleetus', ->
     'testDir/withGitRepoAtSecondLevel/secondLevel',
     'testDir/withGitRepoAtSecondLevel/secondLevel/.git',
   ]
-
 
   beforeEach ->
     for directory in directoryStructure
@@ -27,17 +26,11 @@ describe 'cleetus', ->
     rimraf.sync 'testDir'
 
   it 'should be defined', ->
-    expect(Cleetus).toBeDefined()
-
-  it 'should have help function', ->
-    spyOn(console, 'log')
-    expect(cleetus.help).toBeDefined()
-    cleetus.help()
-    expect(console.log.callCount).toBe(3)
+    expect(GitR).toBeDefined()
 
   it 'should list all git enabled directories under given directory', ->
     spyOn(console, 'log')
-    cleetus.ls('testDir')
+    gitr.ls('testDir')
 
     expect(console.log).toHaveBeenCalled()
     expect(console.log.callCount).toBe(2)
@@ -46,7 +39,7 @@ describe 'cleetus', ->
 
   it 'should trim trailing slash list all git enabled directories under given directory', ->
     spyOn(console, 'log')
-    cleetus.ls('testDir')
+    gitr.ls('testDir')
 
     expect(console.log).toHaveBeenCalled()
     expect(console.log.callCount).toBe(2)
@@ -55,44 +48,44 @@ describe 'cleetus', ->
 
   it 'should ls from cwd if no argument is passed', ->
     spyOn(console, 'log')
-    cleetus.ls()
+    gitr.ls()
     expect(console.log).toHaveBeenCalled()
     expect(console.log.callCount).toBe(1)
     expect(console.log.calls[0].args[0]).toBe(process.cwd())
 
   it 'should ls with absolute path', ->
     spyOn(console, 'log')
-    cleetus.ls('/Users/ken/dev/git/cleetus/testDir')
+    gitr.ls('/Users/ken/dev/git/gitr/testDir')
     expect(console.log).toHaveBeenCalled()
     expect(console.log.callCount).toBe(2)
-    expect(console.log.calls[0].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepo')
-    expect(console.log.calls[1].args[0]).toBe('/Users/ken/dev/git/cleetus/testDir/withGitRepoAtSecondLevel/secondLevel')
+    expect(console.log.calls[0].args[0]).toBe('/Users/ken/dev/git/gitr/testDir/withGitRepo')
+    expect(console.log.calls[1].args[0]).toBe('/Users/ken/dev/git/gitr/testDir/withGitRepoAtSecondLevel/secondLevel')
 
   it 'should have function for executing a git command', ->
-    expect(cleetus.do).toBeDefined()
+    expect(gitr.do).toBeDefined()
     expect(cp.exec).toBeDefined();
     spyOn(cp, 'exec');
-    cleetus.do 'status', '/Users/ken/dev/git/cleetus'
+    gitr.do 'status', '/Users/ken/dev/git/gitr'
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(1)
-    command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
+    command = 'git --git-dir=/Users/ken/dev/git/gitr/.git --work-tree=/Users/ken/dev/git/gitr status'
     expect(cp.exec.calls[0].args[0]).toBe(command)
 
   it 'should execute git command at cmd if path is not supplied', ->
-    expect(cleetus.do).toBeDefined()
+    expect(gitr.do).toBeDefined()
     expect(cp.exec).toBeDefined();
     spyOn(cp, 'exec');
-    cleetus.do 'status'
+    gitr.do 'status'
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(1)
-    command = 'git --git-dir=/Users/ken/dev/git/cleetus/.git --work-tree=/Users/ken/dev/git/cleetus status'
+    command = 'git --git-dir=/Users/ken/dev/git/gitr/.git --work-tree=/Users/ken/dev/git/gitr status'
     expect(cp.exec.calls[0].args[0]).toBe(command)
 
   it 'should execute git command recursively for all git enabled repos', ->
-    expect(cleetus.do).toBeDefined()
+    expect(gitr.do).toBeDefined()
     expect(cp.exec).toBeDefined();
     spyOn(cp, 'exec').andCallFake (cmd, cb) -> cb()
-    cleetus.do 'status', 'testDir'
+    gitr.do 'status', 'testDir'
     expect(cp.exec).toHaveBeenCalled()
     expect(cp.exec.callCount).toBe(2)
     expect(cp.exec.calls[0].args[0]).toBe('git --git-dir=testDir/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=testDir/withGitRepoAtSecondLevel/secondLevel status')

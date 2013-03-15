@@ -1,21 +1,7 @@
-CLeetus command line tools
+gitr: recursive git command line tool
 
 ```
-git clone https://github.com/kenglxn/CLeetus.git
-cd CLeetus
-sudo npm install -g
-
-#example usage
-cleetus help
-cleetus ls
-cleetus do status
-cleetus do "log --since '1 day ago' --oneline --pretty=format:'%s'"
-```
-
-
-create a CLeetus alias for convenience:
-```
-alias gitr="cleetus do"
+sudo npm install -g gitr
 
 #example usage
 gitr status

@@ -1,10 +1,11 @@
 {
-    "name":"cleetus",
+    "name":"gitr",
     "version":"0.0.1",
-    "description":"Command Line tools",
-    "main":"./lib/cleetus.js",
+    "description":"perform git commands recursively",
+    "keywords": [ "git", "recursive", "command", "line", "tool" ],
+    "main":"./lib/gitr.js",
     "bin":{
-        "cleetus":"./bin/cleetus.js"
+        "gitr":"./bin/gitr.js"
     },
     "dependencies":{
         "coffee-script":"~1.5.0",
@@ -21,6 +22,5 @@
     "repository":"",
     "author":"ken@glxn.net",
     "license":"ALv2",
-    "readmeFilename":"README.md",
-    "gitHead":"7824de88f28366f5a33dabd5592b4bf45048cba1"
+    "readmeFilename":"README.md"
 }
