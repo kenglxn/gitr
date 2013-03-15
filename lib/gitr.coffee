@@ -5,7 +5,7 @@ class GitR
   checkDirArg = (dirArg) -> if dirArg?.length then "#{dirArg}".replace /\/$/, '' else "#{process.cwd()}"
   log = (m...) => console.log m...
 
-  repos = (dir) =>
+  findRepos = (dir) =>
     dirs = []
     if fs.statSync(dir).isDirectory()
       subDirs = fs.readdirSync(dir)
@@ -13,7 +13,7 @@ class GitR
         dirs.push dir
       else
         _.each subDirs, (subDir) ->
-          dirs.push repos dir + '/' + subDir
+          dirs.push findRepos dir + '/' + subDir
     _.flatten dirs
 
   exec = (gitCmd, repo, cb) =>
@@ -25,13 +25,16 @@ class GitR
       log "#{color.yellow}::#{repo}::#{color.green}\n#{msg}" if msg?.length > 0
       cb()
 
-  ls: (dir) => _.each repos(checkDirArg(dir)), (repo) => log repo
+  ls: (dir) => _.each findRepos(checkDirArg(dir)), (repo) => log repo
 
   do: (cmd = '', path) =>
     fns = []
-    _.each repos(checkDirArg(path)), (repo) =>
+    dir = checkDirArg(path)
+    repos = findRepos(dir)
+    _.each repos, (repo) =>
       fns.push (cb) =>
         exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd}", repo, cb
     q.dequeue fns, =>
+    log "#{color.red}no git repos under #{color.yellow}#{dir}#{color.cls}" if repos.length == 0
 
 exports = module.exports = GitR
