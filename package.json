@@ -1,6 +1,6 @@
 {
     "name":"gitr",
-    "version":"0.0.1",
+    "version":"0.0.2",
     "description":"perform git commands recursively",
     "keywords": [ "git", "recursive", "command", "line", "tool" ],
     "main":"./lib/gitr.js",
@@ -19,6 +19,8 @@
     "scripts":{
         "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
     },
+    "homepage": "https://github.com/kenglxn/gitr",
+    "bugs": "https://github.com/kenglxn/gitr/issues",
     "repository": {
         "type": "git",
         "url": "git://github.com/kenglxn/gitr.git"
