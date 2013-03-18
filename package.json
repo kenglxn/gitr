@@ -1,6 +1,6 @@
 {
     "name":"gitr",
-    "version":"0.0.2",
+    "version":"0.0.3",
     "description":"perform git commands recursively",
     "keywords": [ "git", "recursive", "command", "line", "tool" ],
     "main":"./lib/gitr.js",
