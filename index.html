@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>gitr by kenglxn</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/kenglxn/gitr">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>gitr</h1>
+            <h2>perform git commands recursively</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/kenglxn/gitr/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/kenglxn/gitr/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <p>gitr: recursive git command line tool</p>
+
+<ul>
+<li><a href="https://npmjs.org/package/gitr">https://npmjs.org/package/gitr</a></li>
+</ul><p>Install:</p>
+
+<pre><code>sudo npm install -g gitr
+</code></pre>
+
+<p>Example usage:</p>
+
+<pre><code>gitr status
+gitr pull
+gitr "log --since '1 day ago' --oneline --pretty=format:'%s'"
+</code></pre>
+
+<p>Building:</p>
+
+<pre><code>git clone git://github.com/kenglxn/gitr.git
+cd gitr
+npm test
+</code></pre>
+
+<p>License:</p>
+
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a></li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/kenglxn">kenglxn</a> can be found on <a href="https://github.com/kenglxn/gitr">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
