@@ -1,31 +1,37 @@
 {
-    "name":"gitr",
-    "version":"0.0.3",
-    "description":"perform git commands recursively",
-    "keywords": [ "git", "recursive", "command", "line", "tool" ],
-    "main":"./lib/gitr.js",
-    "bin":{
-        "gitr":"./bin/gitr.js"
-    },
-    "dependencies":{
-        "coffee-script":"~1.5.0",
-        "underscore":"~1.4.4"
-    },
-    "devDependencies":{
-        "jasmine-node":"~1.0.28",
-        "rimraf": "2.1.4"
-    },
-    "preferGlobal":true,
-    "scripts":{
-        "test":"./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
-    },
-    "homepage": "https://github.com/kenglxn/gitr",
-    "bugs": "https://github.com/kenglxn/gitr/issues",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/kenglxn/gitr.git"
-    },
-    "author":"ken@glxn.net",
-    "license":"ALv2",
-    "readmeFilename":"README.md"
+  "name": "gitr",
+  "version": "0.0.3",
+  "description": "perform git commands recursively",
+  "keywords": [
+    "git",
+    "recursive",
+    "command",
+    "line",
+    "tool"
+  ],
+  "main": "./lib/gitr.js",
+  "bin": {
+    "gitr": "./bin/gitr.js"
+  },
+  "dependencies": {
+    "coffee-script": "~1.5.0",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.14.2",
+    "rimraf": "2.1.4"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec/ --coffee"
+  },
+  "homepage": "https://github.com/kenglxn/gitr",
+  "bugs": "https://github.com/kenglxn/gitr/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kenglxn/gitr.git"
+  },
+  "author": "ken@glxn.net",
+  "license": "ALv2",
+  "readmeFilename": "README.md"
 }
