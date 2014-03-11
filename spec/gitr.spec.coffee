@@ -31,23 +31,31 @@ describe 'gitr', ->
 
   it 'should execute git command recursively for all git enabled repos', ->
     expect(gitr.do).toBeDefined()
-    expect(cp.exec).toBeDefined();
-    spyOn(cp, 'exec').andCallFake (cmd, cb) -> cb()
+    expect(cp.spawn).toBeDefined();
+    spyOn(cp, 'spawn').andCallFake (cmd, opts) ->
+      on: (evt, cb)->
+        cb()
     gitr.do 'status'
-    expect(cp.exec).toHaveBeenCalled()
-    expect(cp.exec.callCount).toBe(2)
-    expect(cp.exec.calls[0].args[0]).toBe("git --git-dir=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel status")
-    expect(cp.exec.calls[1].args[0]).toBe("git --git-dir=#{process.cwd()}/withGitRepo/.git --work-tree=#{process.cwd()}/withGitRepo status")
+    expect(cp.spawn).toHaveBeenCalled()
+    expect(cp.spawn.callCount).toBe(2)
+    expect(cp.spawn.calls[0].args[0]).toBe("git")
+    expect(cp.spawn.calls[0].args[1]).toEqual(["--git-dir=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel/.git", "--work-tree=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel" , "status"])
+    expect(cp.spawn.calls[1].args[0]).toBe("git")
+    expect(cp.spawn.calls[1].args[1]).toEqual(["--git-dir=#{process.cwd()}/withGitRepo/.git", "--work-tree=#{process.cwd()}/withGitRepo", "status"])
 
   it 'should support splats', ->
     expect(gitr.do).toBeDefined()
-    expect(cp.exec).toBeDefined();
-    spyOn(cp, 'exec').andCallFake (cmd, cb) -> cb()
+    expect(cp.spawn).toBeDefined();
+    spyOn(cp, 'spawn').andCallFake (cmd, opts) ->
+      on: (evt, cb)->
+        cb()
     gitr.do 'diff', '--staged'
-    expect(cp.exec).toHaveBeenCalled()
-    expect(cp.exec.callCount).toBe(2)
-    expect(cp.exec.calls[0].args[0]).toBe("git --git-dir=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel/.git --work-tree=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel diff --staged")
-    expect(cp.exec.calls[1].args[0]).toBe("git --git-dir=#{process.cwd()}/withGitRepo/.git --work-tree=#{process.cwd()}/withGitRepo diff --staged")
+    expect(cp.spawn).toHaveBeenCalled()
+    expect(cp.spawn.callCount).toBe(2)
+    expect(cp.spawn.calls[0].args[0]).toBe("git")
+    expect(cp.spawn.calls[0].args[1]).toEqual(["--git-dir=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel/.git", "--work-tree=#{process.cwd()}/withGitRepoAtSecondLevel/secondLevel" , "diff", "--staged"])
+    expect(cp.spawn.calls[1].args[0]).toBe("git")
+    expect(cp.spawn.calls[1].args[1]).toEqual(["--git-dir=#{process.cwd()}/withGitRepo/.git", "--work-tree=#{process.cwd()}/withGitRepo", "diff", "--staged"])
 
 
 

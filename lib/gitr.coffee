@@ -15,13 +15,9 @@ class GitR
     _.flatten dirs
 
   exec = (cmd, repo, cb) =>
-    cp.exec "git --git-dir=#{repo}/.git --work-tree=#{repo} #{cmd.join(' ')}", (err, stdout, stderr) ->
-      msg = ''
-      msg += "#{stdout}\n#{color.cls}" if stdout?.length > 0
-      msg += "#{color.red}#{err}#{color.cls}" if err?.length > 0
-      msg += "#{color.red}#{stderr}#{color.cls}" if stderr?.length > 0
-      log "#{color.yellow}::#{repo}::#{color.green}\n#{msg}" if msg?.length > 0
-      cb()
+    child = cp.spawn 'git', _.flatten(["--git-dir=#{repo}/.git", "--work-tree=#{repo}", cmd]),
+      stdio: 'inherit'
+    child.on 'exit', cb
 
   do: (cmd...) =>
     fns = []
