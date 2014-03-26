@@ -18,9 +18,7 @@ class GitR
     log "#{color.yellow}:: #{repo} ::#{color.cls}"
     child = cp.spawn 'git', _.flatten(["--git-dir=#{repo}/.git", "--work-tree=#{repo}", cmd]),
       stdio: 'inherit'
-    child.on 'exit', ->
-      log "\n"
-      cb()
+    child.on 'exit', cb
 
   do: (cmd...) =>
     fns = []
