@@ -15,7 +15,7 @@ class GitR
     _.flatten dirs
 
   exec = (cmd, repo, cb) =>
-    log "\n\n:: #{repo} ::\n"
+    log "\n\n#{color.yellow}:: #{repo} ::#{color.cls}\n"
     child = cp.spawn 'git', _.flatten(["--git-dir=#{repo}/.git", "--work-tree=#{repo}", cmd]),
       stdio: 'inherit'
     child.on 'exit', cb
