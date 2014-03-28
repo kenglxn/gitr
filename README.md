@@ -22,7 +22,7 @@ Any command you can pass to git, will work with gitr. gitr also inherits stdio, 
     gitr pull
     gitr log --since '1 week ago' --oneline --pretty=format:'%s'
 
-git log becomes interactive if the buffer is above one page. In the demo gif above you can see two git log commands passed through gitr. The first with is for one day, which is under one page per repo, and logs directly without interaction. The second is for one year, which goes into interaction mode.
+git log becomes interactive if the buffer is above one page. In the demo gif above you can see two git log commands passed through gitr. The first with is for one day, which is under one page per repo, and logs directly without interaction. The second is for one year, which goes into interactive mode.
 
 ### Building:
 
