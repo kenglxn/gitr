@@ -11,7 +11,7 @@ https://npmjs.org/package/gitr
 
 ### Install:
 
-    sudo npm install -g gitr
+    npm install -g gitr
 
 ### Usage:
 
