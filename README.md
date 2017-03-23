@@ -1,6 +1,3 @@
-[![Donate](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/kenglxn/)
-
-
 ## gitr: recursive git command line tool
 
 https://npmjs.org/package/gitr
@@ -11,7 +8,7 @@ https://npmjs.org/package/gitr
 
 ### Install:
 
-    sudo npm install -g gitr
+    npm install -g gitr
 
 ### Usage:
 
