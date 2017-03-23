@@ -9,9 +9,9 @@ class GitR
       subDirs = fs.readdirSync(dir)
       if '.git' in subDirs
         dirs.push dir
-      else
-        _.each subDirs, (subDir) ->
-          dirs.push findRepos dir + '/' + subDir
+
+      _.each subDirs, (subDir) ->
+        dirs.push findRepos dir + '/' + subDir
     _.flatten dirs
 
   exec = (cmd, repo, cb) =>
