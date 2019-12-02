@@ -2,6 +2,8 @@
 
 https://npmjs.org/package/gitr
 
+Please consider [sponsoring](https://github.com/sponsors/kenglxn)
+
 ### Demo
 
 ![Demo](https://github.com/kenglxn/gitr/raw/master/demo.gif)
